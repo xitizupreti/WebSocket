@@ -4,7 +4,6 @@ import { useEffect } from "react";
 
 //init the conenction
 // const io = require('socket.io-client');
-
 function App() {
   useEffect(() => {
     const socket = io("https://gss.wscada.net");
