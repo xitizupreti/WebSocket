@@ -3,7 +3,7 @@ import { instrument } from "@socket.io/admin-ui";
 
 const io = new Server(3000, {
   cors: {
-    origin: ["http://localhost:3000","https://admin.socket.io"],
+    origin: ["http://localhost:3000","https://admin.socket.io","http://gss.wscada.net"],
     credentials: true,
   },
 });
