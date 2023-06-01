@@ -1,25 +1,45 @@
-import React from "react";
-import io from "socket.io-client";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+// import { render } from "react-dom";
+import Highcharts from "highcharts";
+import HighchartsReact from "highcharts-react-official";
+import axios from "axios";
+const url="https://gss.wscada.net/api/socket/HPL/response";
 
-//init the conenction
-// const io = require('socket.io-client');
 
-function App() {
+const App = () => {
+
+  const [data, setData] = useState([]);
+
+  const options = {
+    title: {
+      text: "My chart",
+    },
+    series: [
+      {
+        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 100],
+      },
+    ],
+  };
   useEffect(() => {
-    const socket = io("https://gss.wscada.net");
-
-    socket.on("connect", () => {
-      // recieve a msg from the server
-      console.log("connect");
-      socket.on("HPL", (data) => {
-        console.log(data);
-      });
-      // send a msg to the server
-      socket.emit("client_request", "HPL");
-    });
+    async function Data() {
+      try {
+        const response = await axios.get(`${url}`);
+        console.log(response.data);
+        setData(response.data);
+        // setLoading(false);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    Data();
   }, []);
-  return <>Test</>;
-}
+  return (
+    <>
+      <div>
+        <HighchartsReact highcharts={Highcharts} options={options} />
+      </div>
+    </>
+  );
+};
 
 export default App;
