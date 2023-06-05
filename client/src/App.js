@@ -12,7 +12,6 @@ function App() {
 
     socket.on("connect", () => {
       // recieve a msg from the server
-      console.log("connect");
       socket.on("river_test", (data) => {
         console.log(data);
       });
