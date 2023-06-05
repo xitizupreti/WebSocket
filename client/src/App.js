@@ -6,16 +6,18 @@ import { useEffect } from "react";
 // const io = require('socket.io-client');
 function App() {
   useEffect(() => {
-    const socket = io("https://gss.wscada.net");
+    const socket = io("https://dms2.dhm.gov.np", {
+      path: "/gss/socket.io",
+    });
 
     socket.on("connect", () => {
       // recieve a msg from the server
       console.log("connect");
-      socket.on("HPL", (data) => {
+      socket.on("river_test", (data) => {
         console.log(data);
       });
       // send a msg to the server
-      socket.emit("client_request", "HPL");
+      socket.emit("client_request", "river_test");
     });
   }, []);
   return <>Test</>;
